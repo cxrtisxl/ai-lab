@@ -1,0 +1,42 @@
+A neural network is a function approximator. Given enough neurons and the
+right weights, it can shape itself to fit almost any curve you throw at it.
+That's the whole magic — but "the magic" usually means an equation you can
+write down on a napkin.
+
+Below is the same model you can play with in the
+[Inside The Black Box](/inside-the-black-box), embedded
+right in the article. Drag the sliders. Watch the curve bend.
+
+<iframe
+  src="https://www.desmos.com/calculator/wrpjscbziu"
+  width="100%"
+  height="600"
+  style={{ border: "1px solid hsl(var(--border))" }}
+/>
+
+## What you're looking at
+
+Each neuron is a weighted sum followed by a non-linear squish. Stack a few of
+them and the network can represent kinks, bumps, and curves it couldn't with
+a single layer. The sliders expose the weights directly — change one and you
+can see exactly which part of the curve it controls.
+
+A few things worth noticing:
+
+- **Activations matter.** Swap the non-linearity and the kind of shapes the
+  network can produce changes too.
+- **Width buys expressiveness.** More neurons in a layer = more degrees of
+  freedom in the curve.
+- **Depth buys composition.** Stacked layers compose simple shapes into
+  complicated ones.
+
+## Why this matters
+
+When people say "the model learned X", they mean: gradient descent walked
+the weights toward a configuration where the output curve matches the
+training data. Everything else — attention, transformers, scaling laws — is
+plumbing on top of this same idea.
+
+The Desmos toy above isn't a real network, but it captures the intuition:
+**a neural network is just a parameterised curve.** Training is the search
+for the right parameters.

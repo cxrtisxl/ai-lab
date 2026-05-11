@@ -56,8 +56,7 @@
     border-color: hsl(var(--border));
   }
   html,
-  body,
-  #root {
+  body {
     height: 100%;
   }
   body {
@@ -70,15 +69,95 @@
   }
 }
 
-#cursor {
-  position: fixed;
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  border: 2px solid hsl(var(--foreground));
-  outline: 2px solid hsl(var(--background));
-  pointer-events: none;
-  transform: translate(-50%, -50%);
-  transition: transform 0.15s ease-out;
-  z-index: 9999;
+/* Minimal prose styles for MDX articles. Scoped to .prose so it doesn't
+   leak into full-bleed entries (tools, embeds, etc.). */
+.prose {
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  color: hsl(var(--foreground));
+}
+.prose > * + * {
+  margin-top: 1.25em;
+}
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4 {
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  margin-top: 2em;
+  margin-bottom: 0.5em;
+}
+.prose h1 {
+  font-size: 2rem;
+}
+.prose h2 {
+  font-size: 1.5rem;
+}
+.prose h3 {
+  font-size: 1.25rem;
+}
+.prose p {
+  color: hsl(var(--foreground));
+}
+.prose a {
+  color: hsl(var(--primary));
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.prose a:hover {
+  text-decoration: none;
+}
+.prose strong {
+  font-weight: 600;
+}
+.prose code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.875em;
+  background-color: hsl(var(--muted));
+  padding: 0.15em 0.35em;
+  border-radius: 4px;
+}
+.prose pre {
+  background-color: hsl(var(--muted));
+  padding: 1em 1.25em;
+  border-radius: 8px;
+  overflow-x: auto;
+  font-size: 0.875rem;
+}
+.prose pre code {
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+}
+.prose ul,
+.prose ol {
+  padding-left: 1.5em;
+}
+.prose ul {
+  list-style: disc;
+}
+.prose ol {
+  list-style: decimal;
+}
+.prose li + li {
+  margin-top: 0.25em;
+}
+.prose blockquote {
+  border-left: 3px solid hsl(var(--border));
+  padding-left: 1em;
+  color: hsl(var(--muted-foreground));
+  font-style: italic;
+}
+.prose hr {
+  border: 0;
+  border-top: 1px solid hsl(var(--border));
+  margin: 2.5em 0;
+}
+.prose iframe {
+  display: block;
+  margin: 1.5em 0;
+  max-width: 100%;
+  border-radius: 8px;
 }
