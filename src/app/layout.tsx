@@ -2,6 +2,8 @@ import type { Metadata } from "next"
 
 import { SiteFooter } from "@/components/site-footer"
 import { SiteHeader } from "@/components/site-header"
+import { ThemeProvider } from "@/components/theme-provider"
+import Script from "next/script"
 
 import "./globals.css"
 
@@ -37,11 +39,26 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className="min-h-screen bg-background text-foreground flex flex-col">
-        <SiteHeader />
-        <main className="flex-1">{children}</main>
-        <SiteFooter />
+    <html lang="en" suppressHydrationWarning>
+      <body
+        className="min-h-screen bg-background text-foreground flex flex-col"
+        suppressHydrationWarning
+      >
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <SiteHeader />
+          <main className="flex-1">{children}</main>
+          <SiteFooter />
+        </ThemeProvider>
+        <Script
+          src="https://cloud.umami.is/script.js"
+          data-website-id="fdd7fdc5-5ddc-4b35-9732-178e3c237c58"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   )

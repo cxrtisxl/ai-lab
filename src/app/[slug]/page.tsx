@@ -37,8 +37,6 @@ export default async function EntryPage({ params }: Props) {
     notFound()
   }
 
-  const isArticle = entry.tags?.includes("article")
-
   const header = (
     <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
       <div className="flex items-center gap-3 min-w-0">
@@ -75,23 +73,12 @@ export default async function EntryPage({ params }: Props) {
     </div>
   )
 
-  if (isArticle) {
-    return (
-      <div className="mx-auto max-w-3xl px-6 py-6 flex flex-col gap-8">
-        {header}
-        <article className="prose pb-16">
-          <entry.Component />
-        </article>
-      </div>
-    )
-  }
-
   return (
-    <div className="mx-auto max-w-5xl px-6 py-6 flex flex-col gap-4 h-[calc(100vh-7rem)]">
+    <div className="mx-auto max-w-3xl px-6 py-6 flex flex-col gap-8">
       {header}
-      <div className="flex-1 min-h-[400px] rounded-xl border bg-card overflow-hidden">
+      <article className="prose pb-16">
         <entry.Component />
-      </div>
+      </article>
     </div>
   )
 }

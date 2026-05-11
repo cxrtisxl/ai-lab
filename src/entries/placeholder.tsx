@@ -1,6 +1,6 @@
 export function Placeholder() {
   return (
-    <div className="h-full flex flex-col items-center justify-center text-center px-6 gap-2">
+    <div className="py-12 text-center flex flex-col items-center gap-2 not-prose">
       <span className="text-4xl">🧪</span>
       <p className="text-sm text-muted-foreground max-w-md">
         Nothing here yet. Create a component in{" "}

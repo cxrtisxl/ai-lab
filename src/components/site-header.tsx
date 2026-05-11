@@ -1,5 +1,7 @@
 import Link from "next/link"
 
+import { ThemeToggle } from "@/components/theme-toggle"
+
 export function SiteHeader() {
   return (
     <header className="border-b">
@@ -25,7 +27,7 @@ export function SiteHeader() {
             lab
           </Link>
         </nav>
-        <nav className="text-sm text-muted-foreground">
+        <div className="flex items-center gap-3 text-sm text-muted-foreground">
           <a
             href="https://github.com/cxrtisxl/ai-lab"
             target="_blank"
@@ -34,7 +36,8 @@ export function SiteHeader() {
           >
             github
           </a>
-        </nav>
+          <ThemeToggle />
+        </div>
       </div>
     </header>
   )
