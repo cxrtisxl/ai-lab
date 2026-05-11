@@ -51,7 +51,7 @@ export default function HomePage() {
           <br />
           Each one is a self-contained piece — click through to read or play.
           <br />
-          Curated by <a
+          Made by <a
             href="https://x.com/cxrtisxl"
             target="_blank"
             rel="noreferrer"
