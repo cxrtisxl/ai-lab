@@ -29,7 +29,7 @@ export function SiteHeader() {
         </nav>
         <div className="flex items-center gap-3 text-sm text-muted-foreground">
           <a
-            href="https://github.com/cxrtisxl/ai-lab"
+            href="https://github.com/cxrtisxl/lab"
             target="_blank"
             rel="noreferrer"
             className="hover:text-foreground transition-colors"

@@ -6,7 +6,7 @@ export function SeeTheFuture() {
       <p>
         This is a model that simulates a SaaS business in time and answers a question:<br />
         <i>
-          "At what CAC and Churn Rate will the business show the target MRR in N months with the specified initial inputs?".
+          &ldquo;At what CAC and Churn Rate will the business show the target MRR in N months with the specified initial inputs?&rdquo;.
         </i>
       </p>
       <p>
