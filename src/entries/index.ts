@@ -1,8 +1,8 @@
 import type { ComponentType } from "react"
 
-import { InsideTheBlackBox } from "./inside-the-black-box"
+import { InsideTheBlackBox } from "./inside-the-black-box/inside-the-black-box"
 import { Placeholder } from "./placeholder"
-import TheBlackBoxExplained from "./the-black-box-explained.mdx"
+import TheBlackBoxExplained from "./inside-the-black-box/the-black-box-explained.mdx"
 import { SeeTheFuture } from "./see-the-future"
 
 export type Entry = {
@@ -75,7 +75,7 @@ const allFeed: FeedItem[] = [
     slug: "see-the-future",
     title: "See The Future - a SaaS simulation",
     description: "See the future of SaaS in multiverse!",
-    emoji: "📝",
+    emoji: "🔮",
     status: "live",
     tags: ["tool"],
     Component: SeeTheFuture,

@@ -1,12 +1,9 @@
 "use client"
 import { useResolvedTheme } from "@/lib/use-resolved-theme"
 
-const GRAPH_ID = "r5kc6rnqzd"
-
-export function InsideTheBlackBox() {
+export function DesmosFinal() {
   const theme = useResolvedTheme()
-  const src = `https://www.desmos.com/calculator/${GRAPH_ID}${theme === "dark" ? "?invertedColors=true" : ""
-    }`
+  const src = `https://www.desmos.com/calculator/r5kc6rnqzd${theme === "dark" ? "?invertedColors=true" : ""}`
   return (
     <iframe
       key={theme}

@@ -42,22 +42,23 @@ function EntryRow({ entry }: { entry: Entry }) {
 export default function HomePage() {
   return (
     <div className="mx-auto max-w-5xl px-6 py-16 md:py-24">
-      <section className="max-w-2xl">
+      <section>
         <h1 className="text-4xl md:text-5xl font-medium tracking-tight">
-          Lab by{" "}
-          <a
+          The Lab
+        </h1>
+        <p className="mt-4 text-muted-foreground text-base md:text-lg">
+          A space for writing, tools, and ideas in progress.
+          <br />
+          Each one is a self-contained piece — click through to read or play.
+          <br />
+          Curated by <a
             href="https://x.com/cxrtisxl"
             target="_blank"
             rel="noreferrer"
             className="text-blue-600 dark:text-blue-400 hover:underline"
           >
             @cxrtisxl
-          </a>
-        </h1>
-        <p className="mt-4 text-muted-foreground text-base md:text-lg">
-          A space for writing, tools, and ideas in progress.
-          <br />
-          Each one is a self-contained piece — click through to read or play.
+          </a>.
         </p>
       </section>
 

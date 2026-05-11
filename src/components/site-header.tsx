@@ -10,7 +10,6 @@ export function SiteHeader() {
           aria-label="Breadcrumb"
           className="flex items-center gap-2 font-medium tracking-tight"
         >
-          <span className="text-xl leading-none">🧪</span>
           <a
             href="https://cxrtisxl.com"
             className="text-muted-foreground hover:text-foreground transition-colors"
