@@ -23,7 +23,7 @@ export function SiteHeader() {
             href="/"
             className="text-foreground hover:text-muted-foreground transition-colors"
           >
-            lab
+            The Lab
           </Link>
         </nav>
         <div className="flex items-center gap-3 text-sm text-muted-foreground">
@@ -36,6 +36,13 @@ export function SiteHeader() {
             github
           </a>
           <ThemeToggle />
+          <a
+            href="https://x.com/cxrtisxl"
+            target="_blank"
+            className="inline-flex items-center rounded-md bg-blue-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-blue-500 transition-colors"
+          >
+            Follow on X
+          </a>
         </div>
       </div>
     </header>

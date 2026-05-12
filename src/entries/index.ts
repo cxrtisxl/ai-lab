@@ -55,7 +55,7 @@ const allFeed: FeedItem[] = [
         description:
           "A short walkthrough of how a neural network shapes itself into a function approximator. With a live model embedded in the middle.",
         emoji: "📝",
-        status: "live",
+        status: "draft",
         tags: ["article"],
         Component: TheBlackBoxExplained,
       },
@@ -65,7 +65,7 @@ const allFeed: FeedItem[] = [
         description:
           "A minimalistic neural network visualised in Desmos. Dive into how a neural network approximates a function and play with it.",
         emoji: "📈",
-        status: "live",
+        status: "draft",
         tags: ["experiment"],
         Component: InsideTheBlackBox,
       },
@@ -76,7 +76,7 @@ const allFeed: FeedItem[] = [
     title: "See The Future - a SaaS simulation",
     description: "See the future of SaaS in multiverse!",
     emoji: "🔮",
-    status: "live",
+    status: "draft",
     tags: ["tool"],
     Component: SeeTheFuture,
   },

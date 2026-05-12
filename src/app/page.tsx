@@ -47,18 +47,16 @@ export default function HomePage() {
           The Lab
         </h1>
         <p className="mt-4 text-muted-foreground text-base md:text-lg">
-          A space for writing, tools, and ideas in progress.
+          Explore ideas in an interactive manner.
           <br />
-          Each one is a self-contained piece — click through to read or play.
-          <br />
-          Made by <a
+          By <a
             href="https://x.com/cxrtisxl"
             target="_blank"
             rel="noreferrer"
             className="text-blue-600 dark:text-blue-400 hover:underline"
           >
             @cxrtisxl
-          </a>.
+          </a>. For the curious.
         </p>
       </section>
 

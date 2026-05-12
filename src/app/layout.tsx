@@ -10,22 +10,22 @@ import "./globals.css"
 export const metadata: Metadata = {
   title: {
     default: "Lab — writing, tools, and ideas by cxrtisxl",
-    template: "%s — lab",
+    template: "%s — The Lab",
   },
   description:
     "A space for writing, tools, and ideas in progress.",
-  authors: [{ name: "cxrtisxl", url: "https://cxrtisxl.com" }],
-  creator: "cxrtisxl",
+  authors: [{ name: "Ian Sosunov (cxrtisxl)", url: "https://cxrtisxl.com" }],
+  creator: "Ian Sosunov (cxrtisxl)",
   openGraph: {
     type: "website",
-    title: "Lab",
+    title: "The Lab",
     description: "Writing, tools, and ideas in progress.",
     siteName: "lab",
   },
   twitter: {
     card: "summary_large_image",
     creator: "@cxrtisxl",
-    title: "Lab",
+    title: "The Lab",
     description: "Writing, tools, and ideas in progress.",
   },
   icons: {
