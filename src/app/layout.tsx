@@ -58,9 +58,8 @@ export default function RootLayout({
           </ThemeLockProvider>
         </ThemeProvider>
         <Script
-          src="/io/script.js"
+          src="https://cloud.umami.is/script.js"
           data-website-id="fdd7fdc5-5ddc-4b35-9732-178e3c237c58"
-          data-host-url="https://lab.cxrtisxl.com/io"
           data-domains="lab.cxrtisxl.com"
           data-do-not-track="true"
           strategy="afterInteractive"
