@@ -9,6 +9,8 @@ export function InsideTheBlackBox() {
   const src = `https://www.desmos.com/calculator/${GRAPH_ID}${theme === "dark" ? "?invertedColors=true" : ""
     }`
   return (
-    <DesmosFinal />
+    <div className="wide">
+      <DesmosFinal />
+    </div>
   )
 }

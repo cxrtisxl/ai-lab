@@ -9,18 +9,18 @@ export function SeeTheFuture() {
           &ldquo;At what CAC and Churn Rate will the business show the target MRR in N months with the specified initial inputs?&rdquo;.
         </i>
       </p>
-      <p>
+      {/* <p>
         Read{" "}
         <Link href="/system-simulations-explained">
           &ldquo;See The Future&rdquo; article
         </Link>{" "}
         to learn about how dynamic systems simulation work and how it might
         help you to make the right descisions.
-      </p>
+      </p> */}
       <iframe
         src="https://seethefuture.cxrtisxl.com"
         width="100%"
-        height="1000"
+        height="1025"
         style={{ maxHeight: "910" }}
         scrolling="no"
         className="border rounded-md"

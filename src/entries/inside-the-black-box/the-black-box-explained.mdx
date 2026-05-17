@@ -1,7 +1,14 @@
-import { DesmosFinal } from "./desmos"
+import {
+  DesmosBlackBoxDots,
+  DesmosBlackBoxApproximation,
+  DesmosBuildingBlocksLine,
+  Desmos,
+  DesmosFinal,
+  WhiteOrBlack
+} from "./desmos"
 
 Around 5 years ago I took a course to learn neural networks.
-It started with "let's do derivatives to find the minimum of a function".
+It started with "let's do derivatives to find a local minimum..."<br/>
 I left it soon.
 
 I believe that teaching without explaining "why" is the biggest mistake
@@ -9,13 +16,218 @@ so this article is meant to be the entry point into neural networks.
 You probably heard that AI is a black box. Today you'll take a look inside of it.
 And even will do neural network's work yourself!
 
-## Understanding a Neural Network
+## Neural Network as a function approximator
 Let's start with understanding the neural network. Not as a set of digital neurons
-composed in layers but as a function approximator. The goal of a neural network is to produce
+composed in layers but as a **function approximator**. The goal of a neural network is to produce
 the correct result for the given input arguments. The arguments might be whatever they are 
-(in a form of numbers tho) - set of pixels data, paragraph of words, financial report numbers, etc.
-The task for the neural network, and I'm talking about neural networks in general,
-is to produce the correct response for the input data. And the question is what does it mean?
+(in a form of numbers) - set of pixels data, paragraph of words, financial report numbers, etc.
+Having some input data and some operations on them that produce the result lead us to "function".
 
+> Function is a set of operations and applied rules on function parameters that produce a function result.
 
-<DesmosFinal />
+From math perspective function is something more strict but I will keep this general term for now.
+If we're talking about the system with defined rules - the system might be described as a function.
+<br/>`parameters -> function(parameters) -> result`
+<br/>Even for the next word in this sentence there's a function. I don't know it, but I use it right...
+<br/>`function("I don't know it, but I use it right...") -> "now"`
+<br/>Yes, "now". I use it right now. The sentense in this example becomes the argument.
+And the function produced the next word. This exact function is really complex -
+it takes grammar into account and the context (meanings of all the words in the sentence). It would be nice to
+find a way to define this function. We would be able to make chatbots than! But it's really, really difficult.
+Probably we could define all the grammar rules but defining the rules for processing the meaning
+would be nearly impossible. However, do we really need to define all the rules to find the function?
+Yet I don't know the exact function to write the next word but still writing this article.
+Sometimes we don't need to find all the operations and rules that compose a function, we just want to approximate them enough.
+Imagine you don't have a ruller to draw a line and you do it by hand.
+It's still a line! Maybe not perfect, but good enough to be recognised and even to compose a complex sketch.
+That's what we want. Instead of defining function rules we will take some "operations building blocks"
+and using them will compose an approximated function that will produce the approximatelly same results
+with the function we wanted to define.
+
+That's what neural networks actually do. They approximates funcitons that are too complex to be defined.
+
+## Let's practice!
+Here's a function: `x * x = y`. It has 1 parameter - `x`, 1 operation - `*` and a result - `y`.
+<br/>Let's assume it's a black box and you don't know what operation is under
+the hood. What you can observe are function parameters and function results:
+<br/>`0 → Black Box → 0`
+<br/>`2 → Black Box → 4`
+<br/>`3 → Black Box → 9`
+<br/>`6 → Black Box → 36`
+
+Here are them on the graph:
+<DesmosBlackBoxDots />
+What should be value for `4`? If you wouldn't know the function you probably might just
+connect the existing dots with lines and just check which `y` value will land on the graph libe
+for `x = 4`. Let's do it.
+{/* interactive={false} */}
+<Desmos id="ikwig7oc0b" interactive={false}/>
+`y` here equals `18`. Is it a correct answer for `4 * 4`? No. Is it approximatelly correct? Yes.
+Having more "input - output" examples for our black box will allow us to draw a graph closer to the true one
+and get the answer closer to `16` but with just five examples it's good enough.
+
+Congratulations! We just did what neural networks do - approximated the function. Without knowing the actual
+operations inside the black box function we are able to predict its answer for any given parameter `x`, do we?
+Actually no.
+
+## Building Blocks
+Drawing segment connecting dots is not enough since they don't answer the questions.
+What will be `y` for `x = 5.5`? Keep in mind that we assume we don't know the operation inside our black box
+function (`x * x = y`). Having the graph with segments we probably could draw a vertical line on `x = 5.5` as
+I did it before for `x = 4`, find the intersection with the segment and find the answer. But to find the
+intersection we need to know the functions that describes the lines, including the segments!
+Otherwise it'll be "measurment by eye" (as I did it before) and definitelly something that computers can't do.
+
+So our goal now is to find some kind of building blocks, that combined will allow us to depict any shape on
+the graph. And these building blocks should be not just lines, but exist in form of simple functions
+so at the end we will combine them to get our final function that will be the approximation for the
+black box one.
+
+If you familiar with math you can stop here and think about what these blocks might be. Small pieces that
+combined together allows to shape any function on the graph.
+
+Ok. So segment is a piece of line. Connected segments is a bent line. Let's start with a line.
+The mathematical function to describe the line is `wx + b = y`.
+<br/>`x` is the function parameter and `y` is the result,
+the function answer for the exact `x` passed as an input.
+<br/>`w` and `b` are something we need to define - "settings" for our line.
+<br/>Try it by yourself! Here's a line defined as `wx + b = y` on the graph and `w` and `b` sliders that you
+can move to see how these "settings" affects the resulting line.
+
+<Desmos id="xzsmrezekn" width="wide" height={800} />
+
+Now, let's add several more lines and bring the dots back. Try to connect the dots with the lines, changing
+their `w` and `b` parameters.
+<Desmos id="7s7l0aeiqy" width="wide" height={800} />
+
+<details className="wide" style={{cursor: "pointer", userSelect: "none", fontWeight: 600}}>
+  <summary>Show Solution</summary>
+  <div>
+    `y = 2x + 0` (`w = 2, b = 0`) - the line connecting the first two dots<br/>
+    `y = 5x - 6` (`w = 5, b = -6`) - the line connecting the second and third donts<br/>
+    `y = 9x - 18` (`w = 9, b = -18`) - the line connecting the third and the fourth dots<br/>
+  </div>
+  <Desmos id="iyskcguaay" height={800} />
+</details>
+
+That's how you draw on a graph! The only problem with these lines is that they are 3 different lines with
+3 different functions, still not connected with each other.<br/>
+Let's fix that to get a one bent line and one a final function that will define it at the end!
+
+## Combining The Blocks
+If the function consist of operations over their parameters, then we want our lines functions as parameters
+and some operations to combine them.
+The most basic operation in math is addition - all other arithmetic operations
+consists of them. There's no need to make it overcomplicated so let's just combine our line function with
+addition.<br/>
+Here I will switch to function notation. It represented by the function name, parameters in braces and then 
+the equasion. So our line function `y = wx + b` will be written as `line(x) = wx + b`. Now, let's combine our
+building blocks, the lines with addition.
+
+<code>
+  combine(line<sub>1</sub>, line<sub>2</sub>, line<sub>3</sub>) = line<sub>1</sub> + line<sub>2</sub> + line<sub>3</sub>
+</code>
+Now, if we'd unwrap what `line`s are, we will get the next equasion
+<code>
+  combine(line<sub>1</sub>, line<sub>2</sub>, line<sub>3</sub>) = (w<sub>1</sub>x+b<sub>1</sub>) + (w<sub>2</sub>x+b<sub>2</sub>) + (w<sub>2</sub>x+b<sub>2</sub>)
+</code>
+
+Let's look at the resulting line! Also, feel free to move <code>line<sub>1</sub></code>,
+<code>line<sub>2</sub></code>, <code>line<sub>3</sub></code> by changing the corresponding `w`s and `b`s 
+to see how they affect the result.
+<br/>*P.S. On the graph the lines are denoted as <code>l<sub>1</sub></code>,
+<code>l<sub>2</sub></code>, <code>l<sub>3</sub></code>*
+<Desmos id="jsmgcqilh9" width="wide" height={900} />
+The red line here demonstrates the resulting function - a combination of our building blocks.
+It's all off. Let's think about it in a different way - our line functions should not just trace the desired
+line, but shape the resulting (red) one. The steeper the line function - the more it bends the resulting one.
+Since our line reproduce "bend force" right now, we don't want it to exist below `0`. We want to start to
+apply the "bend force" at some pont and we want this force to be 0 before this point. Let's implement it by
+modifying our building block.
+
+Our line function from
+<code>
+  line(x) = wx + b
+</code>
+becomes
+<code>
+  line(x) = max(0, (wx + b))
+</code>
+`max` function accepts 2 parameters and gives the one that higher in value as the result.
+We pass `0` and our original building block line function `wx + b`. So the line exists only above `0`.
+Play with it!
+<Desmos id="4ckgcunbqg" width="wide" />
+Now let's use this update <s>building</s> bending block to shape the red line. The resulting function stays
+<code>
+  combine(line<sub>1</sub>, line<sub>2</sub>, line<sub>3</sub>) = line<sub>1</sub> + line<sub>2</sub> + line<sub>3</sub>
+</code>
+but turns into
+<code>
+  combine(line<sub>1</sub>, line<sub>2</sub>, line<sub>3</sub>) = max(0, (w<sub>1</sub>x+b<sub>1</sub>)) + max(0, (w<sub>2</sub>x+b<sub>2</sub>)) + max(0, (w<sub>2</sub>x+b<sub>2</sub>))
+</code>
+Take a look at the graph below! We clearly can see that while <code>line<sub>2</sub></code> and
+<code>line<sub>3</sub></code> are at `0`, only <code>line<sub>1</sub></code> bends the resulting red line.
+The "force" of the 2nd blue line applies on the bent red line, adding to the "bend force" of the 1st line.
+Same happening when the 3rd line peels off from `0`.
+
+Try to shape the resulting function by yourself first - just move the sliders and observe.
+<br/>*P.S. <code>w<sub>1</sub></code> and <code>b<sub>1</sub></code> are correct*
+<Desmos id="zbcct4uudr" width="wide" height={900} />
+<details className="wide" style={{cursor: "pointer", userSelect: "none", fontWeight: 600}}>
+  <summary>Show Solution</summary>
+  <div>
+    <code>w<sub>1</sub> = 2</code>
+    <code>b<sub>1</sub> = 0</code><br/>
+    <code>w<sub>2</sub> = 3</code>
+    <code>b<sub>2</sub> = -6</code><br/>
+    <code>w<sub>3</sub> = 4</code>
+    <code>b<sub>3</sub> = -12</code><br/>
+  </div>
+  <Desmos id="5riho6b3d6" height={800} />
+</details>
+Yeah, now it's not so simple, but now we have one function that can represents what we want.
+Let's substitute `w`s and `b`s to write the final function we got for each line.
+<details style={{cursor: "pointer", userSelect: "none", fontWeight: 600}}>
+  <summary>Line Functions</summary>
+  <div>
+      <code>line<sub>1</sub> = w<sub>1</sub>x + b<sub>1</sub> = 2x + 0</code><br/>
+      <code>line<sub>2</sub> = w<sub>2</sub>x + b<sub>2</sub> = 3x - 6</code><br/>
+      <code>line<sub>3</sub> = w<sub>3</sub>x + b<sub>3</sub> = 4x - 12</code><br/>
+      <code>line<sub>3</sub> = w<sub>3</sub>x + b<sub>3</sub> = 4x - 12</code><br/>
+      <code>line<sub>resulting</sub> = max(0, (2x+0)) + max(0, (3x-6)) + max(0, (4x-12))</code>
+  </div>
+</details>
+
+Do you still remember what we've been doing? We've been approximating the function knowing only its
+corresponding inputs and outputs (the red dots on the graph). Our approximation is complete! Let's have a
+small break solving the issue I raised in the "Building Blocks" chapter - what's will be the solution for
+`x = 5.5`? We don't need to guess, don't need to draw anything - just plug `5.5` into our funciton
+approximation (represented by the red line on the graph). Let me also rename the function from `combine` to
+`approximated` since this represents it better. And `x` will be the parameter since now we have all
+the `w`s and `b`s and only `x` is changing.
+<code>
+approximated(x) = max(0, (w<sub>1</sub>x+b<sub>1</sub>)) + max(0, (w<sub>2</sub>x+b<sub>2</sub>)) + max(0, (w<sub>2</sub>x+b<sub>2</sub>))
+</code>
+substituting `w`s and `b`s
+<code>
+approximated(x) = max(0, (2x+0)) + max(0, (3x-6)) + max(0, (4x-12))
+</code>
+substituting `x` (5.5)
+<code>
+approximated(5.5) = max(0, (2*5.5+0)) + max(0, (3*5.5-6)) + max(0, (4*5.5-12))
+</code>
+solving
+<code>
+approximated(5.5) = max(0, 11) + max(0, 10.5) + max(0, 10)
+</code>
+solving `max` functions and adding
+<code>
+approximated(5.5) = 11 + 10.5 + 10 = 31.5
+</code>
+
+We got `31.5`! Great result for a function approximated on just 5 values.
+The correct answer for the original function we've been approximating (`original(x) = x * x`) is
+`5.5 * 5.5 = 30.25` which is just 4% off the result we got!
+
+## Generalizing
+TODO - approximated should be w*line1+w*line2+w*line3 without activation. Describe why

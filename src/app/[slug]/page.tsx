@@ -5,6 +5,7 @@ import { ArrowLeft, ExternalLink } from "lucide-react"
 
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
+import { LockUserTheme } from "@/components/theme-lock"
 import { entries, findEntry } from "@/entries"
 
 type Props = {
@@ -36,6 +37,18 @@ export default async function EntryPage({ params }: Props) {
   if (!entry) {
     notFound()
   }
+
+  // Scope the entry's color overrides to <body> so the whole chrome
+  // (header, footer, prose, borders) recolors via the existing
+  // `hsl(var(--token))` cascade. Unmounts on client nav, so it self-cleans.
+  const themeVars = entry.theme
+    ? Object.entries(entry.theme)
+        .map(
+          ([key, value]) =>
+            `--${key.replace(/[A-Z]/g, (c) => `-${c.toLowerCase()}`)}:${value}`
+        )
+        .join(";")
+    : null
 
   const header = (
     <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
@@ -74,11 +87,17 @@ export default async function EntryPage({ params }: Props) {
   )
 
   return (
-    <div className="mx-auto max-w-3xl px-6 py-6 flex flex-col gap-8">
-      {header}
-      <article className="prose pb-16">
-        <entry.Component />
-      </article>
-    </div>
+    <>
+      {themeVars && <style>{`body{${themeVars}}`}</style>}
+      {entry.lockUserTheme && <LockUserTheme />}
+      <div className="py-6 flex flex-col gap-8">
+        <div className="article-grid">
+          <div>{header}</div>
+        </div>
+        <article className="article-grid prose pb-16">
+          <entry.Component />
+        </article>
+      </div>
+    </>
   )
 }

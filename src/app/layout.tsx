@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import { SiteFooter } from "@/components/site-footer"
 import { SiteHeader } from "@/components/site-header"
 import { ThemeProvider } from "@/components/theme-provider"
+import { ThemeLockProvider } from "@/components/theme-lock"
 import Script from "next/script"
 
 import "./globals.css"
@@ -50,9 +51,11 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <SiteHeader />
-          <main className="flex-1">{children}</main>
-          <SiteFooter />
+          <ThemeLockProvider>
+            <SiteHeader />
+            <main className="flex-1">{children}</main>
+            <SiteFooter />
+          </ThemeLockProvider>
         </ThemeProvider>
         <Script
           src="https://cloud.umami.is/script.js"

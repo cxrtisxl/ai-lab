@@ -1,5 +1,36 @@
 import type { ComponentType } from "react"
 
+import { blackWhite } from "./theme-presets"
+
+/**
+ * Per-entry color overrides. Each value is an HSL-channel string in the
+ * same format as the design tokens in globals.css (e.g. "0 0% 7.8%").
+ * Set only what you need — anything omitted falls back to the active theme.
+ * Applied scoped to the entry's page, so the whole chrome (header, footer,
+ * prose, borders) recolors coherently.
+ */
+export type EntryTheme = Partial<{
+  background: string
+  foreground: string
+  card: string
+  cardForeground: string
+  popover: string
+  popoverForeground: string
+  primary: string
+  primaryForeground: string
+  secondary: string
+  secondaryForeground: string
+  muted: string
+  mutedForeground: string
+  accent: string
+  accentForeground: string
+  destructive: string
+  destructiveForeground: string
+  border: string
+  input: string
+  ring: string
+}>
+
 import { InsideTheBlackBox } from "./inside-the-black-box/inside-the-black-box"
 import { Placeholder } from "./placeholder"
 import TheBlackBoxExplained from "./inside-the-black-box/the-black-box-explained.mdx"
@@ -15,6 +46,11 @@ export type Entry = {
   tags?: string[]
   /** Optional: shows an "Open in new tab" button in the entry header. */
   externalUrl?: string
+  /** Optional: forces design-token colors for this entry's page. */
+  theme?: EntryTheme
+  /** Optional: disables the site theme toggle while on this entry's page
+   * (shows a lock icon). Pair with `theme` so the forced colors stick. */
+  lockUserTheme?: boolean
   Component: ComponentType
 }
 
@@ -65,7 +101,7 @@ const allFeed: FeedItem[] = [
         description:
           "A minimalistic neural network visualised in Desmos. Dive into how a neural network approximates a function and play with it.",
         emoji: "📈",
-        status: "draft",
+        status: "live",
         tags: ["experiment"],
         Component: InsideTheBlackBox,
       },
@@ -76,8 +112,10 @@ const allFeed: FeedItem[] = [
     title: "See The Future - a SaaS simulation",
     description: "See the future of SaaS in multiverse!",
     emoji: "🔮",
-    status: "draft",
+    status: "live",
     tags: ["tool"],
+    theme: blackWhite,
+    lockUserTheme: true,
     Component: SeeTheFuture,
   },
   {
